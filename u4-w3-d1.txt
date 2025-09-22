@@ -1,0 +1,66 @@
+Esercizi di query su Database creato tramite PostgreSql:
+
+- 1) Estrai tutti i clienti con nome Mario
+
+SELECT * FROM clienti
+WHERE nome = 'Mario'
+
+- 2) Estrarre il nome e il cognome dei clienti nati nel 1982
+
+SELECT nome, cognome FROM clienti
+WHERE anno_di_nascita = 1982
+
+- 3) Estrarre il numero delle fatture con iva al 20%
+
+SELECT COUNT(*) AS Numero_fatture FROM fatture
+WHERE iva = '20%'
+
+- 4) Estrarre i prodotti attivati nel 2017 e che sono in produzione oppure in commercio (Per estrarre l'anno da una data si può usare EXTRACT(YEAR FROM data)
+
+SELECT * FROM prodotti
+WHERE (EXTRACT(YEAR FROM data_attivazione) = 2017 AND in_produzione = true) OR in_commercio = true
+
+- 5) Estrarre le fatture con importo inferiore a 1000 e i dati dei clienti ad esse collegate
+
+SELECT * FROM fatture f
+INNER JOIN clienti c ON f.id_cliente = c.numero_cliente
+WHERE f.importo < 1000
+
+- 6) Riportare l'elenco delle fatture (numero, importo, iva e data) con in aggiunta il nome del fornitore
+
+SELECT f.numero, f.importo, f.iva, f.data, fo.denominazione AS nome_fornitore FROM fatture fa 
+INNER JOIN fornitori fo ON fa.numero_fornitore = fo.numero_fornitore
+
+- 7) Considerando soltanto le fatture con iva al 20%, estrarre il numero di fatture(conteggio fatture) per ogni anno (per estrarre l'anno da una data si può usare EXTRACT(YEAR FROM data)
+
+SELECT EXTRACT(YEAR FROM fa.data_fattura), COUNT(*) AS numero_fatture FROM fatture fa
+WHERE fa.iva ='20%'
+GROUP BY EXTRACT(YEAR FROM fa.data_fattura)
+
+- 8) Riportare il numero di fatture (conteggio fatture) e la somma dei relativi importi divisi per anno di fatturazione
+
+SELCET COUNT(*) AS numero_fatture, SUM(fa.importo) AS totale_importo, EXTRACT(YEAR FROM fa.data_fattura) FROM fatture fa
+GROUP BY EXTRACT(YEAR FROM fa.data_fattura)
+
+- [EXTRA] 9) Estrarre gli anni in cui sono state registrate più di due fatture con tipologia 'A'
+
+SELECT EXTRACT(YEAR FROM fa.data_fattura) AS anno FROM fatture fa
+WHERE fa.tipologia = 'A'
+GROUP BY EXTRACT(YEAR FROM fa.data_fattura)
+HAVING COUNT(*) > 2
+
+- [EXTRA] 10) Estrarre il totale degli importi delle fatture divisi per residenza dei clienti
+
+SELECT c.regione_residenza  SUM(fa.importi) AS totale_importi FROM fatture fa
+INNER JOIN clienti c ON fa.id_cliente = c.numero_cliente
+GROUP BY c.regione_residenza
+
+- [EXTRA] 11) Estrarre il numero dei clienti nati nel 1980 che hanno almeno una fattura superiore a 50 euro
+
+SELECT COUNT(*) AS numero_clienti FROM clienti c
+INNER JOIN fatture fa ON c.numero_cliente = fa.id_cliente
+WHERE c.anno_di_nascita = 1980 AND fa.importo > 50 
+
+
+
+
