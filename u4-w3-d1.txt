@@ -28,7 +28,7 @@ WHERE f.importo < 1000
 
 - 6) Riportare l'elenco delle fatture (numero, importo, iva e data) con in aggiunta il nome del fornitore
 
-SELECT f.numero, f.importo, f.iva, f.data, fo.denominazione AS nome_fornitore FROM fatture fa 
+SELECT fa.numero_fattura, fa.importo, fa.iva, fa.data_fattura, fo.denominazione AS nome_fornitore FROM fatture fa 
 INNER JOIN fornitori fo ON fa.numero_fornitore = fo.numero_fornitore
 
 - 7) Considerando soltanto le fatture con iva al 20%, estrarre il numero di fatture(conteggio fatture) per ogni anno (per estrarre l'anno da una data si può usare EXTRACT(YEAR FROM data)
