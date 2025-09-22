@@ -39,7 +39,7 @@ GROUP BY EXTRACT(YEAR FROM fa.data_fattura)
 
 - 8) Riportare il numero di fatture (conteggio fatture) e la somma dei relativi importi divisi per anno di fatturazione
 
-SELCET COUNT(*) AS numero_fatture, SUM(fa.importo) AS totale_importo, EXTRACT(YEAR FROM fa.data_fattura) FROM fatture fa
+SELCET COUNT(*) AS numero_fatture, SUM(fa.importo) AS totale_importo, EXTRACT(YEAR FROM fa.data_fattura) AS anno FROM fatture fa
 GROUP BY EXTRACT(YEAR FROM fa.data_fattura)
 
 - [EXTRA] 9) Estrarre gli anni in cui sono state registrate più di due fatture con tipologia 'A'
