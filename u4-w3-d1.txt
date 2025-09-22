@@ -51,7 +51,7 @@ HAVING COUNT(*) > 2
 
 - [EXTRA] 10) Estrarre il totale degli importi delle fatture divisi per residenza dei clienti
 
-SELECT c.regione_residenza  SUM(fa.importi) AS totale_importi FROM fatture fa
+SELECT c.regione_residenza  SUM(fa.importo) AS totale_importi FROM fatture fa
 INNER JOIN clienti c ON fa.id_cliente = c.numero_cliente
 GROUP BY c.regione_residenza
 
@@ -59,7 +59,7 @@ GROUP BY c.regione_residenza
 
 SELECT COUNT(DISTINCT c.numero_cliente) AS numero_clienti FROM clienti c
 INNER JOIN fatture fa ON c.numero_cliente = fa.id_cliente
-WHERE c.anno_di_nascita = 1980 AND fa.importo > 50 
+WHERE EXTRACT(YEAR FROM c.anno_di_nascita) = 1980 AND fa.importo > 50 
 
 
 
