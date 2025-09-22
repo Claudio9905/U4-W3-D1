@@ -1,2 +1,1 @@
-# U4-W3-D1
-
+Esercizi basati sulle query in SQL con databse creato con PostgresSQL
