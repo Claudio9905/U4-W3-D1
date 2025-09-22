@@ -33,7 +33,7 @@ INNER JOIN fornitori fo ON fa.numero_fornitore = fo.numero_fornitore
 
 - 7) Considerando soltanto le fatture con iva al 20%, estrarre il numero di fatture(conteggio fatture) per ogni anno (per estrarre l'anno da una data si può usare EXTRACT(YEAR FROM data)
 
-SELECT EXTRACT(YEAR FROM fa.data_fattura), COUNT(*) AS numero_fatture FROM fatture fa
+SELECT EXTRACT(YEAR FROM fa.data_fattura) AS anno, COUNT(*) AS numero_fatture FROM fatture fa
 WHERE fa.iva ='20%'
 GROUP BY EXTRACT(YEAR FROM fa.data_fattura)
 
