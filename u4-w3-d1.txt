@@ -8,7 +8,7 @@ WHERE nome = 'Mario'
 - 2) Estrarre il nome e il cognome dei clienti nati nel 1982
 
 SELECT nome, cognome FROM clienti
-WHERE anno_di_nascita = 1982
+WHERE EXTRACT(EAR FROM anno_di_nascita) = 1982
 
 - 3) Estrarre il numero delle fatture con iva al 20%
 
@@ -57,7 +57,7 @@ GROUP BY c.regione_residenza
 
 - [EXTRA] 11) Estrarre il numero dei clienti nati nel 1980 che hanno almeno una fattura superiore a 50 euro
 
-SELECT COUNT(*) AS numero_clienti FROM clienti c
+SELECT COUNT(DISTINCT c.numero_cliente) AS numero_clienti FROM clienti c
 INNER JOIN fatture fa ON c.numero_cliente = fa.id_cliente
 WHERE c.anno_di_nascita = 1980 AND fa.importo > 50 
 
